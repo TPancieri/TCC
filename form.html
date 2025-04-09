@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!--TODO fica confuso se tem muitos endereços possiveis, adicionar logica para escolher o mais provavel -->
+<!-- TODO adicionar a logica contraria de seleção; auto-complete ao escrever local no form -->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Relato Comunitário - DizAlaga</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="form.css" />
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+    <a class="navbar-brand" href="index.html">
+        <img src="logo.png" width="50" height="50" alt="Logo" />
+        DizAlaga
+    </a>
+    </div>
+</nav>
+
+<section class="relato-section">
+    <h1>Relato Comunitário</h1>
+
+    <p class="text-center mb-4">
+    Ajude-nos a mapear os alagamentos na sua região. Clique no mapa abaixo para marcar o local e preencha o restante do formulário.
+    </p>
+
+    <div id="map"></div>
+    <form action="https://formsubmit.co/c97758a09356b09889cac50fc7e47f48" method="POST">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Seu nome *</label>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="João da Silva" required />
+        </div>
+    
+        <div class="mb-3">
+            <label for="local" class="form-label">Local do alagamento *</label>
+            <input type="text" class="form-control" id="local" name="local" placeholder="Clique no mapa para preencher" required />
+        </div>
+    
+        <div class="mb-3">
+            <label for="data" class="form-label">Data do ocorrido *</label>
+            <input type="date" class="form-control" id="data" name="data" required />
+        </div>
+    
+        <!-- <div class="mb-3">
+            <label for="hora" class="form-label">Hora do ocorrido (opcional)</label>
+            <input type="time" class="form-control" id="hora" name="hora" />
+        </div>-->
+    
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição do alagamento (opcional)</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="4" placeholder="Descreva o que aconteceu, se houve danos, bloqueios, etc."></textarea>
+        </div>
+    
+        <div class="mb-3">
+            <label for="foto" class="form-label">Foto do local (opcional) <!--(não está funcionando com envio por e-mail)--></label>
+            <input class="form-control" type="file" id="foto" disabled />
+        </div>
+    
+        <!-- Campos ocultos com coordenadas -->
+        <input type="hidden" id="latitude" name="latitude" />
+        <input type="hidden" id="longitude" name="longitude" />
+        <input type="hidden" id="dataHoraFinal" name="dataHoraFinal" />
+        <input type="hidden" name="_next" value="https://tpancieri.github.io/TCC/obrigado.html">
+        <input type="hidden" name="_template" value="table" />
+        <!-- Anti-spam -->
+        <input type="hidden" name="_captcha" value="false" /> 
+        
+        <button type="submit" class="btn-enviar">Enviar Relato</button>
+        <a href="index.html" class="btn-voltar">← Voltar para Início</a>
+        
+    </form>
+    
+</section>
+
+<footer class="footer text-center mt-5">
+    <p>DizAlaga - 2025</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>]
+<script src="form.js"></script>
+
+</body>
+</html>
