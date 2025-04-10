@@ -67,21 +67,17 @@
     
         <div class="mb-3">
             <label for="foto" class="form-label">Foto do local (opcional) <!--(não está funcionando com envio por e-mail)--></label>
-            <input class="form-control" type="file" id="foto" disabled />
+            <input class="form-control" type="file" id="foto" name="foto" />
         </div>
     
         <!-- Campos ocultos com coordenadas -->
         <input type="hidden" id="latitude" name="latitude" />
         <input type="hidden" id="longitude" name="longitude" />
         <input type="hidden" id="dataHoraFinal" name="dataHoraFinal" />
-        <input class="form-control" type="file" id="foto" name="foto" />
         <input type="hidden" name="_next" value="https://tpancieri.github.io/TCC/obrigado.html">
         <input type="hidden" name="_template" value="table" />
         <!-- Anti-spam -->
-        <input type="hidden" name="_captcha" value="false" /> 
-       
-        <input type="file" name="foto" /> 
-        <input type="submit" value="Enviar Relato" />
+        
         <button type="submit" class="btn-enviar">Enviar Relato</button>
         <a href="index.html" class="btn-voltar">← Voltar para Início</a>
         
