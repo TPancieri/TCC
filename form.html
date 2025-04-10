@@ -115,15 +115,14 @@
     e.preventDefault();
 
     const foto = document.getElementById('foto').files[0];
-
     if (!foto) {
       alert("Por favor, envie uma imagem.");
       return;
     }
 
-    // Preenche automaticamente a hora atual (HH:MM) no campo oculto
+    // Preenche automaticamente a hora atual (HH:MM)
     const agora = new Date();
-    const horaFormatada = agora.toTimeString().split(' ')[0].slice(0, 5); // Ex: "14:03"
+    const horaFormatada = agora.toTimeString().split(' ')[0].slice(0, 5);
     document.getElementById('hora').value = horaFormatada;
 
     const uploadData = new FormData();
@@ -137,40 +136,21 @@
       });
 
       const uploadJson = await uploadRes.json();
+      console.log(uploadJson); // <-- Depuração
+
+      if (uploadJson.error) {
+        throw new Error(uploadJson.error.message);
+      }
 
       document.getElementById('imagemUrl').value = uploadJson.secure_url;
 
       e.target.submit();
-
       alert('Relato enviado com sucesso!');
     } catch (error) {
       console.error("Erro no upload da imagem:", error);
-      alert("Erro ao enviar a imagem. Tente novamente.");
+      alert("Erro ao enviar a imagem: " + error.message);
     }
   });
-
-    const uploadJson = await uploadRes.json();
-console.log(uploadJson);
-    try {
-  const uploadRes = await fetch('https://api.cloudinary.com/v1_1/dwxku8hlr/image/upload', {
-    method: 'POST',
-    body: uploadData
-  });
-
-  const uploadJson = await uploadRes.json();
-  console.log(uploadJson); // <-- Veja se há mensagem de erro aqui
-
-  if (uploadJson.error) {
-    throw new Error(uploadJson.error.message);
-  }
-
-  document.getElementById('imagemUrl').value = uploadJson.secure_url;
-  e.target.submit();
-  alert('Relato enviado com sucesso!');
-} catch (error) {
-  console.error("Erro no upload da imagem:", error);
-  alert("Erro ao enviar a imagem: " + error.message);
-}
 </script>
 
 
