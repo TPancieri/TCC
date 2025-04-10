@@ -31,57 +31,30 @@
     <h1>Relato Comunitário</h1>
 
     <p class="text-center mb-4">
-    Ajude-nos a mapear os alagamentos na sua região. Clique no mapa abaixo para marcar o local e preencha o restante do formulário.
-    </p>
+    Ajude-nos a mapear os alagamentos na sua região. Preencha o formulário abaixo.
+  </p>
 
-    <div id="map"></div>
-   <form
-      action="https://formspree.io/f/meoavkze"
-      method="POST"
-      enctype="multipart/form-data"
-        >
-        <div class="mb-3">
-            <label for="nome" class="form-label">Seu nome *</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="João da Silva" required />
-        </div>
-    
-        <div class="mb-3">
-            <label for="local" class="form-label">Local do alagamento *</label>
-            <input type="text" class="form-control" id="local" name="local" placeholder="Clique no mapa para preencher" required />
-        </div>
-    
-        <div class="mb-3">
-            <label for="data" class="form-label">Data do ocorrido *</label>
-            <input type="date" class="form-control" id="data" name="data" required />
-        </div>
-    
-        <!-- <div class="mb-3">
-            <label for="hora" class="form-label">Hora do ocorrido (opcional)</label>
-            <input type="time" class="form-control" id="hora" name="hora" />
-        </div>-->
-    
-        <div class="mb-3">
-            <label for="descricao" class="form-label">Descrição do alagamento (opcional)</label>
-            <textarea class="form-control" id="descricao" name="descricao" rows="4" placeholder="Descreva o que aconteceu, se houve danos, bloqueios, etc."></textarea>
-        </div>
-    
-        <div class="mb-3">
-            <label for="foto" class="form-label">Foto do local (opcional) <!--(não está funcionando com envio por e-mail)--></label>
-            <input class="form-control" type="file" id="foto" name="foto" />
-        </div>
-    
-        <!-- Campos ocultos com coordenadas -->
-        <input type="hidden" id="latitude" name="latitude" />
-        <input type="hidden" id="longitude" name="longitude" />
-        <input type="hidden" id="dataHoraFinal" name="dataHoraFinal" />
-        <input type="hidden" name="_next" value="https://tpancieri.github.io/TCC/obrigado.html">
-        <input type="hidden" name="_template" value="table" />
-        <!-- Anti-spam -->
-        
-        <button type="submit" class="btn-enviar">Enviar Relato</button>
-        <a href="index.html" class="btn-voltar">← Voltar para Início</a>
-        
-    </form>
+  <div class="tally-embed">
+    <iframe data-tally-src="https://tally.so/embed/mRrPvQ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy" width="100%" height="554" frameborder="0" marginheight="0" marginwidth="0"
+        title="Alagamentos"></iframe>
+  </div>
+
+  <script>
+    var d = document, w = "https://tally.so/widgets/embed.js", v = function () {
+      "undefined" != typeof Tally ? Tally.loadEmbeds() :
+        d.querySelectorAll("iframe[data-tally-src]:not([src])")
+          .forEach(function (e) { e.src = e.dataset.tallySrc });
+    };
+    if ("undefined" != typeof Tally) v();
+    else if (d.querySelector('script[src="' + w + '"]') == null) {
+      var s = d.createElement("script");
+      s.src = w;
+      s.onload = v;
+      s.onerror = v;
+      d.body.appendChild(s);
+    }
+  </script>
     
 </section>
 
