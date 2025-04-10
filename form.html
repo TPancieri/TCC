@@ -35,7 +35,11 @@
     </p>
 
     <div id="map"></div>
-    <form action="https://formsubmit.co/c97758a09356b09889cac50fc7e47f48" method="POST">
+   <form
+      action="https://formspree.io/f/meoavkze"
+      method="POST"
+      enctype="multipart/form-data"
+        >
         <div class="mb-3">
             <label for="nome" class="form-label">Seu nome *</label>
             <input type="text" class="form-control" id="nome" name="nome" placeholder="João da Silva" required />
@@ -70,11 +74,14 @@
         <input type="hidden" id="latitude" name="latitude" />
         <input type="hidden" id="longitude" name="longitude" />
         <input type="hidden" id="dataHoraFinal" name="dataHoraFinal" />
+        <input class="form-control" type="file" id="foto" name="foto" />
         <input type="hidden" name="_next" value="https://tpancieri.github.io/TCC/obrigado.html">
         <input type="hidden" name="_template" value="table" />
         <!-- Anti-spam -->
         <input type="hidden" name="_captcha" value="false" /> 
-        
+       
+        <input type="file" name="foto" /> 
+        <input type="submit" value="Enviar Relato" />
         <button type="submit" class="btn-enviar">Enviar Relato</button>
         <a href="index.html" class="btn-voltar">← Voltar para Início</a>
         
