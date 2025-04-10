@@ -34,8 +34,12 @@
     <h2 class="text-center mb-4">Relato Comunitário - DizAlaga</h2>
     <div id="map"></div>
 
-    <form id="relatoForm" action="https://usebasin.com/f/c3bb5178e731" method="POST">
-        
+    
+<form id="relatoForm" action="https://usebasin.com/f/c3bb5178e731" method="POST">
+
+ 
+  <input type="hidden" name="email" value="thiago.pancieri.07656@alunos.unialfa.com.br" />
+
   <div class="mb-3">
     <label for="nome" class="form-label">Seu nome</label>
     <input type="text" class="form-control" name="nome" id="nome" required />
@@ -46,10 +50,8 @@
     <input type="date" class="form-control" name="data" id="data" required />
   </div>
 
-  <div class="mb-3">
-    <label for="hora" class="form-label">Hora</label>
-    <input type="time" class="form-control" name="hora" id="hora" required />
-  </div>
+  
+  <input type="hidden" name="hora" id="hora" />
 
   <div class="mb-3">
     <label for="foto" class="form-label">Foto do alagamento</label>
@@ -70,6 +72,7 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="form.js"></script>
+    
 <script>
   const map = L.map('map').setView([-16.6869, -49.2648], 13);
 
@@ -118,7 +121,11 @@
       return;
     }
 
-    
+    // Preenche automaticamente a hora atual (HH:MM) no campo oculto
+    const agora = new Date();
+    const horaFormatada = agora.toTimeString().split(' ')[0].slice(0, 5); // Ex: "14:03"
+    document.getElementById('hora').value = horaFormatada;
+
     const uploadData = new FormData();
     uploadData.append('file', foto);
     uploadData.append('upload_preset', 'form_preset');
@@ -131,10 +138,8 @@
 
       const uploadJson = await uploadRes.json();
 
-      
       document.getElementById('imagemUrl').value = uploadJson.secure_url;
 
-      
       e.target.submit();
 
       alert('Relato enviado com sucesso!');
@@ -144,6 +149,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>
