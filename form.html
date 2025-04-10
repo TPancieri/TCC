@@ -148,6 +148,29 @@
       alert("Erro ao enviar a imagem. Tente novamente.");
     }
   });
+
+    const uploadJson = await uploadRes.json();
+console.log(uploadJson);
+    try {
+  const uploadRes = await fetch('https://api.cloudinary.com/v1_1/dwxku8hlr/image/upload', {
+    method: 'POST',
+    body: uploadData
+  });
+
+  const uploadJson = await uploadRes.json();
+  console.log(uploadJson); // <-- Veja se há mensagem de erro aqui
+
+  if (uploadJson.error) {
+    throw new Error(uploadJson.error.message);
+  }
+
+  document.getElementById('imagemUrl').value = uploadJson.secure_url;
+  e.target.submit();
+  alert('Relato enviado com sucesso!');
+} catch (error) {
+  console.error("Erro no upload da imagem:", error);
+  alert("Erro ao enviar a imagem: " + error.message);
+}
 </script>
 
 
