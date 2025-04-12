@@ -101,59 +101,6 @@ document.getElementById('btn-localizacao').addEventListener('click', async () =>
 configurarAutocomplete('local', map, markerRef);
 
 
-const locateControl = L.control({ position: 'topleft' });
-
-locateControl.onAdd = function () {
-  const div = L.DomUtil.create('div', 'leaflet-control-locate');
-  div.title = 'Localizar minha posição';
-
-  div.onclick = () => {
-    if (!navigator.geolocation) {
-      alert("Seu navegador não suporta geolocalização.");
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-
-      map.setView([lat, lon], 16);
-
-      if (marker) {
-        marker.setLatLng([lat, lon]);
-      } else {
-        marker = L.marker([lat, lon]).addTo(map);
-      }
-
-      document.getElementById('latitude').value = lat.toFixed(6);
-      document.getElementById('longitude').value = lon.toFixed(6);
-
-      try {
-        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1`);
-        const data = await res.json();
-        const address = data.address;
-
-        const rua = address.road || '';
-        const praca = address.square || '';
-        const bairro = address.suburb || address.neighbourhood || '';
-        const cidade = address.city || address.town || address.village || '';
-        const localResumido = [praca || rua, bairro, cidade].filter(Boolean).join(', ');
-
-        document.getElementById('local').value = localResumido || 'Endereço não encontrado';
-      } catch (error) {
-        console.error('Erro ao buscar endereço:', error);
-        document.getElementById('local').value = 'Erro ao buscar endereço';
-      }
-    }, () => {
-      alert("Não foi possível acessar sua localização.");
-    });
-  };
-
-  return div;
-};
-
-locateControl.addTo(map);
-
       // Lógica de upload de imagem 
       /*
       const foto = document.getElementById('foto').files[0];
