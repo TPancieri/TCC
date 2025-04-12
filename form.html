@@ -35,19 +35,26 @@
       <div id="map"></div>
 
       <form id="relatoForm" action="https://usebasin.com/f/c3bb5178e731" method="POST">
-
         <input type="hidden" name="email" value="thiago.pancieri.07656@alunos.unialfa.com.br" />
+        <input type="hidden" name="data" id="data" />
+        <input type="hidden" name="hora" id="hora" />
+        <input type="hidden" name="latitude" id="latitude" />
+        <input type="hidden" name="longitude" id="longitude" />
 
         <div class="mb-3">
           <label for="nome" class="form-label">Seu nome</label>
           <input type="text" class="form-control" name="nome" id="nome" required />
         </div>
 
-        <!-- Campo "data" oculto -->
-        <input type="hidden" name="data" id="data" />
+        <div class="mb-3 position-relative">
+          <label for="local" class="form-label">Local identificado</label>
+          <input type="text" class="form-control" name="local" id="local" placeholder="Digite ou clique no mapa..." autocomplete="off" />
+        </div>
 
-        <!-- Campo "hora" oculto -->
-        <input type="hidden" name="hora" id="hora" />
+        <div class="mb-3">
+          <label for="descricao" class="form-label">Descrição (opcional)</label>
+          <textarea class="form-control" name="descricao" id="descricao" rows="3" placeholder="Descreva a situação, se quiser..."></textarea>
+        </div>
 
         <!-- Foto do alagamento -->
         <!-- 
@@ -57,18 +64,6 @@
           <input type="hidden" name="imagemUrl" id="imagemUrl" />
         </div>
         -->
-
-        <div class="mb-3">
-          <label for="local" class="form-label">Local identificado no mapa</label>
-          <input type="text" class="form-control" name="local" id="local" readonly />
-          <input type="hidden" name="latitude" id="latitude" />
-          <input type="hidden" name="longitude" id="longitude" />
-        </div>
-
-        <div class="mb-3">
-          <label for="descricao" class="form-label">Descrição (opcional)</label>
-          <textarea class="form-control" name="descricao" id="descricao" rows="3" placeholder="Descreva a situação, se quiser..."></textarea>
-        </div>
 
         <button type="submit" class="btn btn-primary w-100">Enviar relato</button>
       </form>
