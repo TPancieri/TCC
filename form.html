@@ -1,158 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<!--TODO fica confuso se tem muitos endereços possiveis, adicionar logica para escolher o mais provavel -->
-<!-- TODO adicionar a logica contraria de seleção; auto-complete ao escrever local no form -->
+
+<!--TODO fica confuso se tem muitos endereços possíveis, adicionar lógica para escolher o mais provável -->
+<!--TODO adicionar a lógica contrária de seleção; auto-complete ao escrever local no form -->
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Relato Comunitário - DizAlaga</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Relato Comunitário - DizAlaga</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="form.css" />
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="form.css" />
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-    <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index.html">
         <img src="logo.png" width="50" height="50" alt="Logo" />
         DizAlaga
-    </a>
+      </a>
     </div>
-</nav>
+  </nav>
 
-<section class="relato-section">
+  <section class="relato-section">
     <h1>Relato Comunitário</h1>
 
     <div class="form-container">
-    <h2 class="text-center mb-4">Relato Comunitário - DizAlaga</h2>
-    <div id="map"></div>
+      <h2 class="text-center mb-4">Relato Comunitário - DizAlaga</h2>
+      <div id="map"></div>
 
-    
-<form id="relatoForm" action="https://usebasin.com/f/c3bb5178e731" method="POST">
+      <form id="relatoForm" action="https://usebasin.com/f/c3bb5178e731" method="POST">
 
- 
-  <input type="hidden" name="email" value="thiago.pancieri.07656@alunos.unialfa.com.br" />
+        <input type="hidden" name="email" value="thiago.pancieri.07656@alunos.unialfa.com.br" />
 
-  <div class="mb-3">
-    <label for="nome" class="form-label">Seu nome</label>
-    <input type="text" class="form-control" name="nome" id="nome" required />
-  </div>
+        <div class="mb-3">
+          <label for="nome" class="form-label">Seu nome</label>
+          <input type="text" class="form-control" name="nome" id="nome" required />
+        </div>
 
-  <div class="mb-3">
-    <label for="data" class="form-label">Data</label>
-    <input type="date" class="form-control" name="data" id="data" required />
-  </div>
+        <!-- Campo "data" oculto -->
+        <input type="hidden" name="data" id="data" />
 
-  
-  <input type="hidden" name="hora" id="hora" />
+        <!-- Campo "hora" oculto -->
+        <input type="hidden" name="hora" id="hora" />
 
-  <div class="mb-3">
-    <label for="foto" class="form-label">Foto do alagamento</label>
-    <input type="file" class="form-control" id="foto" accept="image/*" />
-    <input type="hidden" name="imagemUrl" id="imagemUrl" />
-  </div>
+        <!-- Foto do alagamento -->
+        <!-- 
+        <div class="mb-3">
+          <label for="foto" class="form-label">Foto do alagamento</label>
+          <input type="file" class="form-control" id="foto" accept="image/*" />
+          <input type="hidden" name="imagemUrl" id="imagemUrl" />
+        </div>
+        -->
 
-  <div class="mb-3">
-    <label for="local" class="form-label">Local identificado no mapa</label>
-    <input type="text" class="form-control" name="local" id="local" readonly />
-    <input type="hidden" name="latitude" id="latitude" />
-    <input type="hidden" name="longitude" id="longitude" />
-  </div>
+        <div class="mb-3">
+          <label for="local" class="form-label">Local identificado no mapa</label>
+          <input type="text" class="form-control" name="local" id="local" readonly />
+          <input type="hidden" name="latitude" id="latitude" />
+          <input type="hidden" name="longitude" id="longitude" />
+        </div>
 
-  <button type="submit" class="btn btn-primary w-100">Enviar relato</button>
-</form>
-  </div>
+        <div class="mb-3">
+          <label for="descricao" class="form-label">Descrição (opcional)</label>
+          <textarea class="form-control" name="descricao" id="descricao" rows="3" placeholder="Descreva a situação, se quiser..."></textarea>
+        </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="form.js"></script>
-    
-<script>
-  const map = L.map('map').setView([-16.6869, -49.2648], 13);
+        <button type="submit" class="btn btn-primary w-100">Enviar relato</button>
+      </form>
+    </div>
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
-
-  let marker;
-
-  map.on('click', async function (e) {
-    const { lat, lng } = e.latlng;
-    document.getElementById('latitude').value = lat.toFixed(6);
-    document.getElementById('longitude').value = lng.toFixed(6);
-
-    if (marker) {
-      marker.setLatLng([lat, lng]);
-    } else {
-      marker = L.marker([lat, lng]).addTo(map);
-    }
-
-    try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`);
-      const data = await response.json();
-      const address = data.address;
-
-      const rua = address.road || '';
-      const praca = address.square || '';
-      const bairro = address.suburb || address.neighbourhood || '';
-      const cidade = address.city || address.town || address.village || '';
-      const localResumido = [praca || rua, bairro, cidade].filter(Boolean).join(', ');
-
-      document.getElementById('local').value = localResumido || 'Endereço não encontrado';
-    } catch (err) {
-      console.error(err);
-      document.getElementById('local').value = 'Erro ao buscar endereço';
-    }
-  });
-
-  document.getElementById('relatoForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const foto = document.getElementById('foto').files[0];
-    if (!foto) {
-      alert("Por favor, envie uma imagem.");
-      return;
-    }
-
-    // Preenche automaticamente a hora atual (HH:MM)
-    const agora = new Date();
-    const horaFormatada = agora.toTimeString().split(' ')[0].slice(0, 5);
-    document.getElementById('hora').value = horaFormatada;
-
-    const uploadData = new FormData();
-    uploadData.append('file', foto);
-    uploadData.append('upload_preset', 'form_preset');
-
-    try {
-      const uploadRes = await fetch('https://api.cloudinary.com/v1_1/dwxku8hlr/image/upload', {
-        method: 'POST',
-        body: uploadData
-      });
-
-      const uploadJson = await uploadRes.json();
-      console.log(uploadJson); // <-- Depuração
-
-      if (uploadJson.error) {
-        throw new Error(uploadJson.error.message);
-      }
-
-      document.getElementById('imagemUrl').value = uploadJson.secure_url;
-
-      e.target.submit();
-      alert('Relato enviado com sucesso!');
-    } catch (error) {
-      console.error("Erro no upload da imagem:", error);
-      alert("Erro ao enviar a imagem: " + error.message);
-    }
-  });
-</script>
-
-
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="form.js"></script>
+      
 </body>
+
 </html>
