@@ -72,16 +72,3 @@
       background-color: #f0f0f0;
     }
 
-.leaflet-control-locate {
-  z-index: 1;
-  background-color: white;
-  background-size: 18px 18px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url('https://cdn-icons-png.flaticon.com/512/61/61088.png');
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  border-radius: 4px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-}
