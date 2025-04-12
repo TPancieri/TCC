@@ -1,20 +1,23 @@
-const map = L.map('map').setView([-16.6869, -49.2648], 13);
+import { configurarAutocomplete } from './autocomplete.js';
 
+const map = L.map('map').setView([-16.6869, -49.2648], 13);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
 let marker;
+const markerRef = { current: marker };
 
+// clique no mapa
 map.on('click', async function (e) {
   const { lat, lng } = e.latlng;
   document.getElementById('latitude').value = lat.toFixed(6);
   document.getElementById('longitude').value = lng.toFixed(6);
 
-  if (marker) {
-    marker.setLatLng([lat, lng]);
+  if (markerRef.current) {
+    markerRef.current.setLatLng([lat, lng]);
   } else {
-    marker = L.marker([lat, lng]).addTo(map);
+    markerRef.current = L.marker([lat, lng]).addTo(map);
   }
 
   try {
@@ -35,6 +38,7 @@ map.on('click', async function (e) {
   }
 });
 
+// data e hora
 document.getElementById('relatoForm').addEventListener('submit', async function (e) {
   e.preventDefault();
 
@@ -49,74 +53,8 @@ document.getElementById('relatoForm').addEventListener('submit', async function 
   alert('Relato enviado com sucesso!');
 });
 
-// Autocomplete de endereço
-const localInput = document.getElementById('local');
-let timeout = null;
-let suggestionsDiv;
-
-function criarSugestoesDiv() {
-  suggestionsDiv = document.createElement('div');
-  suggestionsDiv.classList.add('autocomplete-suggestions');
-  localInput.parentNode.appendChild(suggestionsDiv);
-}
-
-function mostrarSugestoes(sugestoes) {
-  suggestionsDiv.innerHTML = '';
-
-  sugestoes.forEach(item => {
-    const option = document.createElement('div');
-    option.classList.add('autocomplete-option');
-    option.textContent = item.display_name;
-
-    option.addEventListener('click', () => {
-      localInput.value = item.display_name;
-      document.getElementById('latitude').value = item.lat;
-      document.getElementById('longitude').value = item.lon;
-
-      const lat = parseFloat(item.lat);
-      const lon = parseFloat(item.lon);
-
-      if (marker) {
-        marker.setLatLng([lat, lon]);
-      } else {
-        marker = L.marker([lat, lon]).addTo(map);
-      }
-      map.setView([lat, lon], 16);
-
-      suggestionsDiv.innerHTML = '';
-    });
-
-    suggestionsDiv.appendChild(option);
-  });
-}
-
-localInput.addEventListener('input', () => {
-  const query = localInput.value.trim();
-
-  if (!suggestionsDiv) criarSugestoesDiv();
-  if (timeout) clearTimeout(timeout);
-
-  if (query.length < 3) {
-    suggestionsDiv.innerHTML = '';
-    return;
-  }
-
-  timeout = setTimeout(async () => {
-    try {
-      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&addressdetails=1&limit=5`);
-      const data = await res.json();
-      mostrarSugestoes(data);
-    } catch (err) {
-      console.error('Erro ao buscar sugestões:', err);
-    }
-  }, 500);
-});
-
-document.addEventListener('click', (e) => {
-  if (suggestionsDiv && !suggestionsDiv.contains(e.target) && e.target !== localInput) {
-    suggestionsDiv.innerHTML = '';
-  }
-});
+// inicializar autocomplete
+configurarAutocomplete('local', map, markerRef);
 
       // Lógica de upload de imagem 
       /*
