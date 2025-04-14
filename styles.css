@@ -169,15 +169,16 @@ body {
     font-weight: 700;
     text-align: center;
     margin: 0 auto 40px auto; 
- 
- .impact p {
-     text-align: center;
-     max-width: 800px;
-     text-align: justify;
-     margin: 0 auto 40px auto; 
-     font-size: 1.1rem;
-     line-height: 1.6;
- }
+}
+
+.impact p {
+    text-align: center;
+    max-width: 800px;
+    text-align: justify;
+    margin: 0 auto 40px auto; 
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
 
 
 .impact-box {
