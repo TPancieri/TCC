@@ -91,7 +91,13 @@ body {
 /* Conteúdo principal da hero */
 .hero-content {
     position: relative;
-    z-index: 2; 
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
 }
 
 .hero h1 {
@@ -165,8 +171,11 @@ body {
 }
 
 .impact p {
-    text-align: justify;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
+
 
 .impact-box {
     padding: 30px;
