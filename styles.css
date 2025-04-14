@@ -2,6 +2,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f0f4f8;
     color: #222;
+    text-align: justify;
 }
 
 /* Barra de Navegação */
@@ -122,7 +123,7 @@ body {
 /* Seção Cards - Click */
 .cards {
     padding: 80px 20px;
-    text-align: center;
+    text-align: justify;
 }
 
 .cards-box {
@@ -153,7 +154,7 @@ body {
 .impact {
     background: white;
     padding: 80px 20px;
-    text-align: center;
+    text-align: justify;
 }
 
 .impact h2 {
