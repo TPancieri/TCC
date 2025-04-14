@@ -155,13 +155,17 @@ body {
 .impact {
     background: white;
     padding: 80px 20px;
-    text-align: justify;
+    text-align: center;
 }
 
 .impact h2 {
     color: #0a3361;
     font-weight: 700;
     text-align: center;
+}
+
+.impact p {
+    text-align: justify;
 }
 
 .impact-box {
