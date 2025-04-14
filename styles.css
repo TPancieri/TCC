@@ -2,7 +2,6 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f0f4f8;
     color: #222;
-    text-align: justify;
 }
 
 /* Barra de Navegação */
@@ -154,12 +153,12 @@ body {
 .impact {
     background: white;
     padding: 80px 20px;
-    text-align: justify;
 }
 
 .impact h2 {
     color: #0a3361;
     font-weight: 700;
+    text-align: justify;
 }
 
 .impact-box {
