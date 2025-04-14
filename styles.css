@@ -167,7 +167,7 @@ body {
 .impact h2 {
     color: #0a3361;
     font-weight: 700;
-    text-align: center;
+    text-align: center !important;
     margin: 0 auto 40px auto; 
 }
 
