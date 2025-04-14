@@ -148,19 +148,20 @@ body {
     font-size: 3rem;
     color: #0a3361;
     margin-bottom: 15px;
+     text-align: center;
 }
 
 /* Seção Cards Informativos */
 .impact {
     background: white;
     padding: 80px 20px;
-     text-align: center;
+    text-align: justify;
 }
 
 .impact h2 {
     color: #0a3361;
     font-weight: 700;
-    text-align: justify;
+    text-align: center;
 }
 
 .impact-box {
@@ -169,6 +170,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    text-align: justify;
 }
 
 .impact-box:hover {
