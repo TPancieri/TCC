@@ -164,14 +164,8 @@ body {
     text-align: center;
 }
 
-.impact h2 {
-    color: #0a3361;
-    font-weight: 700;
-    text-align: center !important;
-    margin: 0 auto 40px auto; 
-}
-
 .impact p {
+    color: #222;
     text-align: center;
     max-width: 800px;
     text-align: justify;
