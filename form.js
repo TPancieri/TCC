@@ -8,8 +8,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let marker;
 const markerRef = { current: marker };
 
-// clique no mapa
-map.on('click', async function (e) {
+
+map.on('click', async (e) => {
   const { lat, lng } = e.latlng;
   document.getElementById('latitude').value = lat.toFixed(6);
   document.getElementById('longitude').value = lng.toFixed(6);
@@ -21,81 +21,82 @@ map.on('click', async function (e) {
   }
 
   try {
-    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`);
-    const data = await response.json();
-    const address = data.address;
-
-    const rua = address.road || '';
-    const praca = address.square || '';
-    const bairro = address.suburb || address.neighbourhood || '';
-    const cidade = address.city || address.town || address.village || '';
+    const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`);
+    const data = await resp.json();
+    const addr = data.address;
+    const rua = addr.road || '';
+    const praca = addr.square || '';
+    const bairro = addr.suburb || addr.neighbourhood || '';
+    const cidade = addr.city || addr.town || addr.village || '';
     const localResumido = [praca || rua, bairro, cidade].filter(Boolean).join(', ');
-
     document.getElementById('local').value = localResumido || 'Endereço não encontrado';
-  } catch (err) {
-    console.error(err);
+  } catch {
     document.getElementById('local').value = 'Erro ao buscar endereço';
   }
 });
 
-// data e hora
-document.getElementById('relatoForm').addEventListener('submit', async function (e) {
+// Data e hora no submit
+document.getElementById('relatoForm').addEventListener('submit', (e) => {
   e.preventDefault();
-
   const agora = new Date();
-  const dataFormatada = agora.toISOString().split('T')[0];
-  const horaFormatada = agora.toTimeString().split(' ')[0].slice(0, 5);
-
-  document.getElementById('data').value = dataFormatada;
-  document.getElementById('hora').value = horaFormatada;
-
+  document.getElementById('data').value = agora.toISOString().split('T')[0];
+  document.getElementById('hora').value = agora.toTimeString().slice(0,5);
   e.target.submit();
   alert('Relato enviado com sucesso!');
 });
 
-document.getElementById('btn-localizacao').addEventListener('click', async () => {
-  if (!navigator.geolocation) {
-    alert("Geolocalização não é suportada pelo seu navegador.");
-    return;
+// Controle de localização do Leaflet
+const locateControl = L.control({ position: 'topleft' });
+locateControl.onAdd = () => {
+  const btn = L.DomUtil.create('button', 'leaflet-control-locate');
+  btn.title = 'Usar minha localização atual';
+  btn.type = 'button';
+
+  btn.onclick = () => {
+    map.locate({
+      setView: true,
+      maxZoom: 16,
+      enableHighAccuracy: true,
+      timeout: 10000
+    });
+  };
+
+  return btn;
+};
+locateControl.addTo(map);
+
+// Ao encontrar a localização
+map.on('locationfound', async (e) => {
+  const { lat, lng } = e.latlng;
+  document.getElementById('latitude').value = lat.toFixed(6);
+  document.getElementById('longitude').value = lng.toFixed(6);
+
+  if (markerRef.current) {
+    markerRef.current.setLatLng(e.latlng);
+  } else {
+    markerRef.current = L.marker(e.latlng).addTo(map);
   }
 
-  navigator.geolocation.getCurrentPosition(async (position) => {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-
-    document.getElementById('latitude').value = lat.toFixed(6);
-    document.getElementById('longitude').value = lon.toFixed(6);
-
-    if (marker) {
-      marker.setLatLng([lat, lon]);
-    } else {
-      marker = L.marker([lat, lon]).addTo(map);
-    }
-
-    map.setView([lat, lon], 16);
-
-    // Obter o endereço
-    try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1`);
-      const data = await response.json();
-      const address = data.address;
-
-      const rua = address.road || '';
-      const praca = address.square || '';
-      const bairro = address.suburb || address.neighbourhood || '';
-      const cidade = address.city || address.town || address.village || '';
-      const localResumido = [praca || rua, bairro, cidade].filter(Boolean).join(', ');
-
-      document.getElementById('local').value = localResumido || 'Endereço não encontrado';
-    } catch (err) {
-      console.error('Erro ao buscar endereço:', err);
-      document.getElementById('local').value = 'Erro ao buscar endereço';
-    }
-  }, () => {
-    alert("Não foi possível acessar sua localização.");
-  });
+  // reverse geocode para preencher o campo local
+  try {
+    const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`);
+    const data = await resp.json();
+    const addr = data.address;
+    const rua = addr.road || '';
+    const praca = addr.square || '';
+    const bairro = addr.suburb || addr.neighbourhood || '';
+    const cidade = addr.city || addr.town || addr.village || '';
+    const localResumido = [praca || rua, bairro, cidade].filter(Boolean).join(', ');
+    document.getElementById('local').value = localResumido || 'Endereço não encontrado';
+  } catch {
+    document.getElementById('local').value = 'Erro ao buscar endereço';
+  }
 });
 
+// Se falhar ao localizar
+map.on('locationerror', () => {
+  alert('Não foi possível acessar sua localização.');
+});
 
 // inicializar autocomplete
 configurarAutocomplete('local', map, markerRef);
