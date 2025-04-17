@@ -94,10 +94,6 @@ document.getElementById('btn-localizacao').addEventListener('click', async () =>
   }, () => {
     alert("Não foi possível acessar sua localização.");
   });
-    enableHighAccuracy: true,   
-    timeout: 10000,             
-    maximumAge: 0               
-  }
 });
 
 
