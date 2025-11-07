@@ -60,7 +60,7 @@ body {
     overflow: hidden;
     text-align: center;
     padding: 120px 20px;
-    color: white;
+    color: #b9dff4;
 }
 
 /* Camada do GIF */
@@ -200,4 +200,5 @@ body {
     padding: 20px 0;
     text-align: center;
 }
+
 
