@@ -74,12 +74,28 @@ async function carregarLocaisAlagamento() {
     });
 
     // Exibe todos inicialmente
-    atualizarMapa('todos');
+    //atualizarMapa('todos');
 
     // Evento de filtro
-    filtroSelect.addEventListener('change', (e) => {
-      atualizarMapa(e.target.value);
-    });
+   // filtroSelect.addEventListener('change', (e) => {
+   //   atualizarMapa(e.target.value);
+   // });
+    const anoPadrao = '2024';
+
+// Seleciona automaticamente o ano 2024 no filtro, se existir
+if (anos.includes(parseInt(anoPadrao))) {
+  filtroSelect.value = anoPadrao;
+  atualizarMapa(anoPadrao);
+} else {
+  // Caso 2024 não esteja no JSON, mostra todos
+  filtroSelect.value = 'todos';
+  atualizarMapa('todos');
+}
+
+  filtroSelect.addEventListener('change', (e) => {
+  atualizarMapa(e.target.value);
+});
+
   } catch (error) {
     console.error('Erro ao carregar locais de alagamento:', error);
   }
@@ -106,4 +122,5 @@ function atualizarMapa(anoSelecionado) {
 // Executa as duas funções
 carregarPontosColeta();
 carregarLocaisAlagamento();
+
 
