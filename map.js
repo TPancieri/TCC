@@ -31,7 +31,7 @@ let todosDados = []; // armazenar os dados originais
 // --- Função 1: carregar Pontos de Coleta (vermelhos) ---
 async function carregarPontosColeta() {
   try {
-    const response = await fetch('coordenadas.json');
+    const response = await fetch('coordenadas_ajustado.json');
     const dados = await response.json();
 
     Object.keys(dados).forEach(nome => {
@@ -122,5 +122,6 @@ function atualizarMapa(anoSelecionado) {
 // Executa as duas funções
 carregarPontosColeta();
 carregarLocaisAlagamento();
+
 
 
