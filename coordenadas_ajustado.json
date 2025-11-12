@@ -1,0 +1,97 @@
+{
+  "Residencial Caraibas": {
+    "lat": -16.810111,
+    "lon": -49.349871,
+    "full_name": "Estação Residencial Caraibas"
+  },
+  "Parque Veiga Jardim": {
+    "lat": -16.800009,
+    "lon": -49.279944,
+    "full_name": "Estação Parque Veiga Jardim"
+  },
+  "Setor Vale do Sol": {
+    "lat": -16.790208,
+    "lon": -49.19876,
+    "full_name": "Estação Setor Vale do Sol"
+  },
+  "Tamanduá": {
+    "lat": -16.76017,
+    "lon": -49.340105,
+    "full_name": "Estação Tamanduá"
+  },
+  "Vera Cruz": {
+    "lat": -16.759788,
+    "lon": -49.29002,
+    "full_name": "Estação Vera Cruz"
+  },
+  "Vila Brasília": {
+    "lat": -16.739989,
+    "lon": -49.25005,
+    "full_name": "Estação Vila Brasília"
+  },
+  "Predio Adm. Da Prefeitura": {
+    "lat": -16.139813,
+    "lon": -49.219736,
+    "full_name": "Estação Predio Adm. Da Prefeitura"
+  },
+  "Heliponto Goiania": {
+    "lat": -16.680104,
+    "lon": -49.250038,
+    "full_name": "Estação Heliponto Goiania"
+  },
+  "Estação Autodromo": {
+    "lat": -16.72078,
+    "lon": -49.189003,
+    "full_name": "Estação Estação Autodromo"
+  },
+  "Corrego Cascavel": {
+    "lat": -16.670143,
+    "lon": -49.300041,
+    "full_name": "Estação Corrego Cascavel"
+  },
+  "Ribeirao Anicuns": {
+    "lat": -16.669946,
+    "lon": -49.319686,
+    "full_name": "Estação Ribeirao Anicuns"
+  },
+  "Perim": {
+    "lat": -16.649934,
+    "lon": -49.299997,
+    "full_name": "Estação Perim"
+  },
+  "Estação Goiania 2": {
+    "lat": -16.639857,
+    "lon": -49.250061,
+    "full_name": "Estação Estação Goiania 2"
+  },
+  "GOIANIA": {
+    "lat": -16.640552,
+    "lon": -49.219814,
+    "full_name": "Estação GOIANIA"
+  },
+  "Estação Aerodromo Goiania": {
+    "lat": -16.620017,
+    "lon": -49.350025,
+    "full_name": "Estação Estação Aerodromo Goiania"
+  },
+  "Jardim Curitiba": {
+    "lat": -16.609874,
+    "lon": -49.340529,
+    "full_name": "Estação Jardim Curitiba"
+  },
+  "MONTANTE DE GOIÂNIA": {
+    "lat": -16.609686,
+    "lon": -49.279983,
+    "full_name": "Estação MONTANTE DE GOIÂNIA"
+  },
+  "Vila Jardim Pompeia": {
+    "lat": -16.610013,
+    "lon": -49.240003,
+    "full_name": "Estação Vila Jardim Pompeia"
+  },
+  "JUSANTE DE GOIÂNIA": {
+    "lat": -16.679833,
+    "lon": -49.200175,
+    "full_name": "Estação JUSANTE DE GOIÂNIA"
+  }
+}
