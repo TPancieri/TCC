@@ -58,7 +58,7 @@ async function carregarPontosColeta() {
 // --- Função 2: carregar Locais de Alagamento (azuis) ---
 async function carregarLocaisAlagamento() {
   try {
-    const response = await fetch('alagamentos.json');
+    const response = await fetch('alagamentos_completo.json');
     const dados = await response.json();
     todosDados = dados;
 
@@ -106,3 +106,4 @@ function atualizarMapa(anoSelecionado) {
 // Executa as duas funções
 carregarPontosColeta();
 carregarLocaisAlagamento();
+
