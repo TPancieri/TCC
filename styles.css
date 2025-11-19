@@ -68,7 +68,7 @@ body {
     position: relative;
     overflow: hidden;
     text-align: center;
-    padding: 120px 20px;
+    padding: 140px 20px 120px 20px; 
     color: #b9dff4;
 }
 
@@ -103,6 +103,8 @@ body {
     z-index: 2;
     max-width: 900px;
     margin: auto;
+    height: auto; 
+    padding-top: 10px;
 }
 
 .hero h1 {
@@ -238,10 +240,30 @@ body {
     }
 
     .cards {
-        padding: 60px 20px;
+        padding: 70px 20px;
+    }
+
+     .cards-grid {
+        gap: 35px; 
+        margin-top: 20px;
+    }
+
+    .cards-box {
+        padding: 35px; /* deixa os cards mais confortáveis */
     }
 
     .impact {
         padding: 60px 20px;
     }
 }
+
+@media (max-width: 480px) {
+    .cards-grid {
+        gap: 40px;
+    }
+
+    .cards-box {
+        padding: 38px;
+    }
+}
+
