@@ -76,6 +76,14 @@ body {
     pointer-events: none; 
 }
 
+@media (max-width: 576px) {
+    .hero-gif-bg {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: #000;
+    }
+}
+
 /* Camada de overlay escuro */
 .hero-overlay {
     position: absolute;
@@ -111,6 +119,20 @@ body {
     margin-bottom: 20px;
     text-align: center;
     color:white;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
 }
 
 /* Botão CTA */
@@ -210,6 +232,7 @@ body {
     padding: 20px 0;
     text-align: center;
 }
+
 
 
 
