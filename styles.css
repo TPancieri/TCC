@@ -229,6 +229,11 @@ body {
 
     .hero {
         padding: 80px 20px;
+        min-height: 460px;
+    }
+
+    .hero-content {
+        padding-top: 20px;
     }
 
     .hero h1 {
@@ -241,10 +246,11 @@ body {
 
     .cards {
         padding: 70px 20px;
+        padding-top: 90px !important;
     }
 
      .cards-grid {
-        gap: 35px; 
+        gap: 45px;  
         margin-top: 20px;
     }
 
@@ -261,9 +267,14 @@ body {
     .cards-grid {
         gap: 40px;
     }
+    
+     .hero {
+        min-height: 520px; 
+    }
 
     .cards-box {
         padding: 38px;
     }
 }
+
 
