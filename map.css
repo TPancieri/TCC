@@ -1,5 +1,14 @@
-#mapa {
-    position: relative;
+#mapa, 
+#mapaAlternativo {
+    height: 55vh;               
+    min-height: 400px;          
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#toggleContainer {
+    margin-top: 20px !important;
 }
 
 /* Container geral */
@@ -45,6 +54,7 @@
 .btn-voltar:hover {
     background-color: #0f53a0;
 }
+
 
 
 
