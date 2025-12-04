@@ -5,26 +5,27 @@ const toggleBtn = document.getElementById("toggleMapa");
 let mostrandoAlternativo = false;
 
 toggleBtn.addEventListener("click", () => {
-    if (mostrandoAlternativo) {
-        // voltar para mapa principal
-        mapaAlternativoDiv.style.display = "none";
-        mapaPrincipalDiv.style.display = "block";
+  if (mostrandoAlternativo) {
 
-        toggleBtn.textContent = "Alternar para Mapa de Calor"; 
+    mapaAlternativoDiv.style.display = "none";
+    mapaPrincipalDiv.style.display = "block";
 
-        setTimeout(() => map.invalidateSize(), 300);
+    toggleBtn.textContent = "Alternar para Mapa de Calor";
 
-    } else {
-        // ir para mapa alternativo
-        mapaPrincipalDiv.style.display = "none";
-        mapaAlternativoDiv.style.display = "block";
 
-        toggleBtn.textContent = "Voltar para Mapa de Ocorrências";
-    }
+    setTimeout(() => {
+      if (typeof map !== "undefined" && map.invalidateSize) map.invalidateSize();
+    }, 200);
 
-    mostrandoAlternativo = !mostrandoAlternativo;
+  } else {
+    mapaPrincipalDiv.style.display = "none";
+    mapaAlternativoDiv.style.display = "block";
+
+    toggleBtn.textContent = "Voltar para Mapa de Ocorrências";
+  }
+
+  mostrandoAlternativo = !mostrandoAlternativo;
 });
-
 
 
 // Inicializa o mapa
@@ -149,4 +150,5 @@ function atualizarMapa(anoSelecionado) {
 // Inicializar
 carregarPontosColeta();
 carregarLocaisAlagamento();
+
 
