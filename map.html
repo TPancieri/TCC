@@ -49,20 +49,20 @@
                 <option value="todos">Todos</option>
             </select>
     </div>
+        
+      
+    <div id="mapsWrapper" class="maps-wrapper rounded shadow" style="width:100%; max-width:1200px; margin: 0 auto;">
+
+      <div id="mapa" class="mapLayer"></div>
     
-   <div id="mapa" class="rounded shadow" style="height: 550px; width: 100%; max-width: 1200px; margin: 0 auto;"></div>
 
-
-    <div id="toggleContainer" class="d-flex justify-content-center mt-3">
-        <button id="toggleMapa" class="btn btn-secondary">
-            Alternar para Mapa de Calor
-        </button>
-    </div>
-
-    <div id="mapaAlternativo" 
-         class="rounded shadow" 
-         style="height: 550px; width: 100%; max-width: 1200px; margin: 0 auto; display: none;">
+      <div id="mapaAlternativo" class="mapLayer" style="display:none;">
         <iframe src="mapa_risco_alagamentos.html" style="width:100%; height:100%; border:0;"></iframe>
+      </div>
+    </div>
+    
+    <div id="toggleContainer" class="d-flex justify-content-center mt-3">
+      <button id="toggleMapa" class="btn btn-secondary">Alternar para Mapa de Calor</button>
     </div>
     
     <p class="text-secondary mt-4" style="max-width: 800px; margin: 0 auto;">
@@ -84,6 +84,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 
