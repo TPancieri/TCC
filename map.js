@@ -6,23 +6,20 @@ let mostrandoAlternativo = false;
 
 toggleBtn.addEventListener("click", () => {
     if (mostrandoAlternativo) {
-
-        // voltar para o mapa principal
+        // voltar para mapa principal
         mapaAlternativoDiv.style.display = "none";
         mapaPrincipalDiv.style.display = "block";
-        toggleBtn.textContent = "Alternar para Mapa Alternativo";
 
-        // Leaflet precisa disso ao reexibir o mapa
-        setTimeout(() => {
-            map.invalidateSize();
-        }, 300);
+        toggleBtn.textContent = "Alternar para Mapa de Calor"; 
+
+        setTimeout(() => map.invalidateSize(), 300);
 
     } else {
-
-        // ir para o mapa alternativo
+        // ir para mapa alternativo
         mapaPrincipalDiv.style.display = "none";
         mapaAlternativoDiv.style.display = "block";
-        toggleBtn.textContent = "Voltar para Mapa Principal";
+
+        toggleBtn.textContent = "Voltar para Mapa de Ocorrências";
     }
 
     mostrandoAlternativo = !mostrandoAlternativo;
@@ -152,3 +149,4 @@ function atualizarMapa(anoSelecionado) {
 // Inicializar
 carregarPontosColeta();
 carregarLocaisAlagamento();
+
