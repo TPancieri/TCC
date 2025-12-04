@@ -1,3 +1,35 @@
+const mapaPrincipalDiv = document.getElementById("mapa");
+const mapaAlternativoDiv = document.getElementById("mapaAlternativo");
+const toggleBtn = document.getElementById("toggleMapa");
+
+let mostrandoAlternativo = false;
+
+toggleBtn.addEventListener("click", () => {
+    if (mostrandoAlternativo) {
+
+        // voltar para o mapa principal
+        mapaAlternativoDiv.style.display = "none";
+        mapaPrincipalDiv.style.display = "block";
+        toggleBtn.textContent = "Alternar para Mapa Alternativo";
+
+        // Leaflet precisa disso ao reexibir o mapa
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 300);
+
+    } else {
+
+        // ir para o mapa alternativo
+        mapaPrincipalDiv.style.display = "none";
+        mapaAlternativoDiv.style.display = "block";
+        toggleBtn.textContent = "Voltar para Mapa Principal";
+    }
+
+    mostrandoAlternativo = !mostrandoAlternativo;
+});
+
+
+
 // Inicializa o mapa
 const map = L.map('mapa').setView([-16.6869, -49.2648], 13); // Goiânia
 
@@ -6,7 +38,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Ícones personalizados
+// Icons
 const redIcon = new L.Icon({
   iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
@@ -25,10 +57,11 @@ const blueIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-let marcadoresAlagamento = []; // para controlar os marcadores visíveis
-let todosDados = []; // armazenar os dados originais
+let marcadoresAlagamento = [];
+let todosDados = [];
 
-// --- Função 1: carregar Pontos de Coleta (vermelhos) ---
+
+// Carregar Pontos de Coleta 
 async function carregarPontosColeta() {
   try {
     const response = await fetch('coordenadas_ajustado.json');
@@ -55,15 +88,18 @@ async function carregarPontosColeta() {
   }
 }
 
-// --- Função 2: carregar Locais de Alagamento (azuis) ---
+
+// Carregar Locais de Alagamento 
 async function carregarLocaisAlagamento() {
   try {
     const response = await fetch('alagamentos_completo.json');
     const dados = await response.json();
     todosDados = dados;
 
-    // Cria opções de filtro dinâmicas
-    const anos = [...new Set(dados.map(p => new Date(p.data).getFullYear()))].sort((a, b) => b - a);
+    // Criar lista de anos
+    const anos = [...new Set(dados.map(p => new Date(p.data).getFullYear()))]
+      .sort((a, b) => b - a);
+
     const filtroSelect = document.getElementById('filtroAno');
 
     anos.forEach(ano => {
@@ -73,37 +109,29 @@ async function carregarLocaisAlagamento() {
       filtroSelect.appendChild(option);
     });
 
-    // Exibe todos inicialmente
-    //atualizarMapa('todos');
-
-    // Evento de filtro
-   // filtroSelect.addEventListener('change', (e) => {
-   //   atualizarMapa(e.target.value);
-   // });
     const anoPadrao = '2024';
 
-// Seleciona automaticamente o ano 2024 no filtro, se existir
-if (anos.includes(parseInt(anoPadrao))) {
-  filtroSelect.value = anoPadrao;
-  atualizarMapa(anoPadrao);
-} else {
-  // Caso 2024 não esteja no JSON, mostra todos
-  filtroSelect.value = 'todos';
-  atualizarMapa('todos');
-}
+    if (anos.includes(parseInt(anoPadrao))) {
+      filtroSelect.value = anoPadrao;
+      atualizarMapa(anoPadrao);
+    } else {
+      filtroSelect.value = 'todos';
+      atualizarMapa('todos');
+    }
 
-  filtroSelect.addEventListener('change', (e) => {
-  atualizarMapa(e.target.value);
-});
+    filtroSelect.addEventListener('change', (e) => {
+      atualizarMapa(e.target.value);
+    });
 
   } catch (error) {
     console.error('Erro ao carregar locais de alagamento:', error);
   }
 }
 
-// --- Função 3: atualizar marcadores com base no filtro ---
+
+// Atualizar marcadores com base no filtro 
 function atualizarMapa(anoSelecionado) {
-  // Remove marcadores antigos
+
   marcadoresAlagamento.forEach(m => map.removeLayer(m));
   marcadoresAlagamento = [];
 
@@ -115,13 +143,12 @@ function atualizarMapa(anoSelecionado) {
     const marker = L.marker([ponto.lat, ponto.lon], { icon: blueIcon })
       .bindPopup(`<strong>${ponto.local}</strong><br>Data: ${ponto.data}`)
       .addTo(map);
+
     marcadoresAlagamento.push(marker);
   });
 }
 
-// Executa as duas funções
+
+// Inicializar
 carregarPontosColeta();
 carregarLocaisAlagamento();
-
-
-
